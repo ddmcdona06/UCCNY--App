@@ -1,98 +1,67 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Pressable, Linking } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
+import { homeStyles as s } from '../../styles/home.styles';
+import { global } from '../../styles/global';
+import { colors } from '../../styles/theme';
+import { GridCard } from '../../components/GridCard';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+// Each tile maps to a section of uccny.org. `route` navigates in-app;
+// `external` opens the website for pages we haven't rebuilt natively.
+const TILES: {
+  title: string;
+  subtitle: string;
+  accent: string;
+  route?: string;
+  external?: string;
+}[] = [
+  { title: 'Together in Love', subtitle: 'Open & Affirming', accent: colors.til.rose, route: '/together' },
+  { title: 'Calendar', subtitle: 'Events & trainings', accent: colors.navy, route: '/calendar' },
+  { title: 'Who Are We', subtitle: 'Faith & staff', accent: colors.gold, external: 'https://uccny.org/about' },
+  { title: 'Resources', subtitle: 'Training & justice', accent: colors.navy, external: 'https://uccny.org/resources' },
+  { title: 'Search & Call', subtitle: 'Ministers & churches', accent: colors.gold, external: 'https://uccny.org/search-and-call' },
+  { title: 'NY School of Ministry', subtitle: 'NYSOM', accent: colors.navy, external: 'https://uccny.org/sample-page/nysom' },
+];
 
-export default function HomeScreen() {
+export default function Home() {
+  const open = (t: (typeof TILES)[number]) => {
+    if (t.route) router.push(t.route as any);
+    else if (t.external) Linking.openURL(t.external);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={global.screen} edges={['top']}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+        <View style={s.hero}>
+          <Text style={s.heroEyebrow}>New York Conference · UCC</Text>
+          <Text style={s.heroTitle}>No matter who you are, you are welcome here.</Text>
+          <Text style={s.heroSub}>
+            A 2,000-year-old faith that never stops growing. Every person, every
+            part of life's journey — no checklist, no exceptions.
+          </Text>
+        </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <View style={s.grid}>
+          {/* Featured event spans full width */}
+          <View style={s.wideCell}>
+            <Pressable
+              style={s.feature}
+              onPress={() => Linking.openURL('https://uccny.org/annualmeeting')}
+            >
+              <View style={s.featureScrim}>
+                <Text style={s.featureEyebrow}>Featured</Text>
+                <Text style={s.featureTitle}>Annual Meeting 2026</Text>
+              </View>
+            </Pressable>
+          </View>
+
+          {TILES.map((t) => (
+            <View key={t.title} style={s.cell}>
+              <GridCard title={t.title} subtitle={t.subtitle} accent={t.accent} onPress={() => open(t)} />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
