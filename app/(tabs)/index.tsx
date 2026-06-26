@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, Pressable, Linking } from 'react-native';
+import { ScrollView, View, Text, Pressable, Linking, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { homeStyles as s } from '../../styles/home.styles';
@@ -17,11 +17,11 @@ const TILES: {
   external?: string;
 }[] = [
   { title: 'Together in Love', subtitle: 'Love, Community, & Connection', accent: colors.til.rose, image: require('../../assets/cards/together.jpg'), route: '/together' },
-  { title: 'Calendar', subtitle: 'Events & Trainings', accent: colors.navy, image: require('../../assets/cards/calendar.jpg'), route: '/calendar' },
-  { title: 'Who Are We', subtitle: 'Faith & Staff', accent: colors.gold, image: require('../../assets/cards/who.jpg'), external: 'https://uccny.org/about' },
-  { title: 'Resources', subtitle: 'Training & Justice', accent: colors.navy, image: require('../../assets/cards/resources.jpg'), external: 'https://uccny.org/resources' },
-  { title: 'Search & Call', subtitle: 'Ministers & Churches', accent: colors.gold, image: require('../../assets/cards/search.jpg'), external: 'https://uccny.org/search-and-call' },
-  { title: 'NY School of Ministry', subtitle: 'NYSOM', accent: colors.navy, image: require('../../assets/cards/nysom.jpg'), external: 'https://uccny.org/sample-page/nysom' },
+  { title: 'Calendar', subtitle: 'Events & Trainings', accent: colors.gold, image: require('../../assets/cards/calendar.jpg'), route: '/calendar' },
+  { title: 'Who Are We', subtitle: 'Faith & Staff', accent: colors.til.community, image: require('../../assets/cards/who.jpg'), external: 'https://uccny.org/about' },
+  { title: 'Resources', subtitle: 'Training & Justice', accent: colors.til.connection, image: require('../../assets/cards/resources.jpg'), external: 'https://uccny.org/resources' },
+  { title: 'Search & Call', subtitle: 'Ministers & Churches', accent: '#4F46E5', image: require('../../assets/cards/search.jpg'), external: 'https://uccny.org/search-and-call' },
+  { title: 'NY School of Ministry', subtitle: 'NYSOM', accent: colors.til.love, image: require('../../assets/cards/nysom.jpg'), external: 'https://uccny.org/sample-page/nysom' },
 ];
 
 export default function Home() {
@@ -43,15 +43,21 @@ export default function Home() {
         </View>
 
         <View style={s.grid}>
-          {/* Featured event spans full width */}
+          {/* Featured event — the Annual Meeting banner */}
           <View style={s.wideCell}>
             <Pressable
               style={s.feature}
               onPress={() => Linking.openURL('https://uccny.org/annualmeeting')}
+              accessibilityRole="button"
+              accessibilityLabel="Annual Meeting: Revive and Resist, Silver Bay YMCA, Lake George"
             >
-              <View style={s.featureScrim}>
+              <Image
+                source={require('../../assets/cards/annual-meeting.png')}
+                style={s.featureImage}
+                resizeMode="cover"
+              />
+              <View style={s.featureOverlay}>
                 <Text style={s.featureEyebrow}>Featured</Text>
-                <Text style={s.featureTitle}>Annual Meeting 2026</Text>
               </View>
             </Pressable>
           </View>

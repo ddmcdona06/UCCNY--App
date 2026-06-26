@@ -77,16 +77,25 @@ export const homeStyles = StyleSheet.create({
     padding: spacing.xs,
   },
   feature: {
+    width: '100%',
+    aspectRatio: 1.682,   // banner ratio lives on the CONTAINER (reliable)
     borderRadius: radius.lg,
     overflow: 'hidden',
-    minHeight: 160,
-    justifyContent: 'flex-end',
     backgroundColor: colors.navy,
     ...shadow.card,
   },
-  featureScrim: {
-    padding: spacing.lg,
-    backgroundColor: colors.overlay,
+  featureImage: {
+    width: '100%',
+    height: '100%',
+  },
+  featureOverlay: {
+    position: 'absolute',
+    bottom: '22%',
+    left: spacing.sm,
+    backgroundColor: 'rgba(18,18,31,0.92)',
+    borderRadius: radius.md,
+    paddingVertical: spacing.xs + 2,
+    paddingHorizontal: spacing.sm + 2,
   },
   featureEyebrow: {
     color: colors.gold,
@@ -94,11 +103,5 @@ export const homeStyles = StyleSheet.create({
     letterSpacing: 1.5,
     textTransform: 'uppercase',
     fontWeight: '700',
-  },
-  featureTitle: {
-    color: colors.white,
-    fontSize: type.sizes.title,
-    marginTop: spacing.xs,
-    ...type.display,
   },
 });
