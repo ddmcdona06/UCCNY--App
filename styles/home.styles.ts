@@ -43,8 +43,13 @@ export const homeStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.line,
     overflow: 'hidden',
-    minHeight: 132,
+    minHeight: 178,
     ...shadow.card,
+  },
+  tileImage: {
+    width: '100%',
+    height: 100,
+    backgroundColor: colors.cardAlt,
   },
   tileBody: {
     padding: spacing.md,
