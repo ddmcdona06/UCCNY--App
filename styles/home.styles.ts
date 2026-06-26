@@ -46,10 +46,28 @@ export const homeStyles = StyleSheet.create({
     minHeight: 178,
     ...shadow.card,
   },
-  tileImage: {
-    width: '100%',
+  tileHeader: {
     height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.cardAlt,
+  },
+  tileImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+  },
+  tileIconDisc: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(18,18,31,0.22)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tileBody: {
     padding: spacing.md,

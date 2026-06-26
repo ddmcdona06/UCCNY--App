@@ -13,15 +13,16 @@ const TILES: {
   subtitle: string;
   accent: string;
   image: any;
+  icon: string;
   route?: string;
   external?: string;
 }[] = [
-  { title: 'Together in Love', subtitle: 'Love, Community, & Connection', accent: colors.til.rose, image: require('../../assets/cards/together.jpg'), route: '/together' },
-  { title: 'Calendar', subtitle: 'Events & Trainings', accent: colors.gold, image: require('../../assets/cards/calendar.jpg'), route: '/calendar' },
-  { title: 'Who Are We', subtitle: 'Faith & Staff', accent: colors.til.community, image: require('../../assets/cards/who.jpg'), external: 'https://uccny.org/about' },
-  { title: 'Resources', subtitle: 'Training & Justice', accent: colors.til.connection, image: require('../../assets/cards/resources.jpg'), external: 'https://uccny.org/resources' },
-  { title: 'Search & Call', subtitle: 'Ministers & Churches', accent: '#4F46E5', image: require('../../assets/cards/search.jpg'), external: 'https://uccny.org/search-and-call' },
-  { title: 'NY School of Ministry', subtitle: 'NYSOM', accent: colors.til.love, image: require('../../assets/cards/nysom.jpg'), external: 'https://uccny.org/sample-page/nysom' },
+  { title: 'Together in Love', subtitle: 'Love, Community, & Connection', accent: colors.til.rose, icon: 'heart', image: require('../../assets/cards/together.jpg'), route: '/together' },
+  { title: 'Calendar', subtitle: 'Events & Trainings', accent: colors.gold, icon: 'calendar', image: require('../../assets/cards/calendar.jpg'), route: '/calendar' },
+  { title: 'Who Are We', subtitle: 'Faith & Staff', accent: colors.til.community, icon: 'people', image: require('../../assets/cards/who.jpg'), external: 'https://uccny.org/about' },
+  { title: 'Resources', subtitle: 'Training & Justice', accent: colors.til.connection, icon: 'book', image: require('../../assets/cards/resources.jpg'), external: 'https://uccny.org/resources' },
+  { title: 'Search & Call', subtitle: 'Ministers & Churches', accent: '#4F46E5', icon: 'search', image: require('../../assets/cards/search.jpg'), external: 'https://uccny.org/search-and-call' },
+  { title: 'NY School of Ministry', subtitle: 'NYSOM', accent: colors.til.love, icon: 'school', image: require('../../assets/cards/nysom.jpg'), external: 'https://uccny.org/sample-page/nysom' },
 ];
 
 export default function Home() {
@@ -64,7 +65,7 @@ export default function Home() {
 
           {TILES.map((t) => (
             <View key={t.title} style={s.cell}>
-              <GridCard title={t.title} subtitle={t.subtitle} accent={t.accent} image={t.image} onPress={() => open(t)} />
+              <GridCard title={t.title} subtitle={t.subtitle} accent={t.accent} image={t.image} icon={t.icon} onPress={() => open(t)} />
             </View>
           ))}
         </View>
